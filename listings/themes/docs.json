@@ -1,0 +1,23 @@
+{
+  "kind": "theme",
+  "name": "docs",
+  "title": "Docs",
+  "summary": "Documentation: scannable sans, a page tree beside the article, search up front.",
+  "author": "Vyasa Team",
+  "versions": [
+    {
+      "version": "4",
+      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/docs-4.vytheme",
+      "sha256": "061b7eef1fe3e9f1adbfa5b828ea0cca45e5c257e778641610e97d5d13f66c36",
+      "required_api": 1,
+      "released_at": "2026-09-05"
+    },
+    {
+      "version": "3",
+      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/docs-3.vytheme",
+      "sha256": "1041bd82d0b6dc912f4c819bd6316e106aa6a017b9001836bbd1f449aaf3d79b",
+      "required_api": 1,
+      "released_at": "2026-09-05"
+    }
+  ]
+}

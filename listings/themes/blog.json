@@ -1,0 +1,23 @@
+{
+  "kind": "theme",
+  "name": "blog",
+  "title": "Blog",
+  "summary": "An editorial journal: serif headlines, a real sidebar, one measure for reading.",
+  "author": "Vyasa Team",
+  "versions": [
+    {
+      "version": "4",
+      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/blog-4.vytheme",
+      "sha256": "e24d972f4139f2c82cd83cce807c1689b785562c1e4a58f450354fe949fe6047",
+      "required_api": 1,
+      "released_at": "2026-09-05"
+    },
+    {
+      "version": "3",
+      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/blog-3.vytheme",
+      "sha256": "9721e12addeb84d4ff975653e86dee25b8fe0244a76a89a4ebb97e5e49f7f625",
+      "required_api": 1,
+      "released_at": "2026-09-05"
+    }
+  ]
+}

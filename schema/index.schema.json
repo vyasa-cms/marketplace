@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vyasa-cms/marketplace/schema/index.schema.json",
+  "title": "Vyasa marketplace index",
+  "description": "The document a Vyasa install reads from registry_url. Generated from listings/ by tools/registry.py build; do not edit by hand.",
+  "type": "object",
+  "required": ["schema", "listings"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": 1,
+      "description": "Document schema version. A site refuses a schema newer than its build understands."
+    },
+    "generated_at": { "type": "string", "description": "Informational build timestamp." },
+    "listings": { "type": "array", "items": { "$ref": "#/$defs/listing" } }
+  },
+  "$defs": {
+    "listing": {
+      "type": "object",
+      "required": ["kind", "name", "versions"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["plugin", "theme"] },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]{1,60}$",
+          "description": "Must equal the name inside the package. A registry cannot rename a package on the way in."
+        },
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "author": { "type": "string" },
+        "homepage": { "type": ["string", "null"], "format": "uri" },
+        "versions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/version" } }
+      }
+    },
+    "version": {
+      "type": "object",
+      "required": ["version", "url", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Semver for plugins, an integer for themes, matching the package manifest."
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://",
+          "description": "Package location. https only; the server refuses anything else."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
+          "description": "Hex SHA-256 of the package bytes. Always checked, signature or not."
+        },
+        "signature": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-fA-F]{128}$",
+          "description": "Hex ed25519 signature over the package bytes, verified against registry_trusted_keys."
+        },
+        "min_host_api": { "type": "integer", "minimum": 0, "description": "Plugins: host API required." },
+        "required_api": { "type": "integer", "minimum": 1, "description": "Themes: token schema targeted." },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Plugins: exactly what the manifest requests. Shown to an operator before install and diffed on update."
+        },
+        "released_at": { "type": "string" }
+      }
+    }
+  }
+}

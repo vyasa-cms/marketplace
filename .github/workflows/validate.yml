@@ -1,0 +1,71 @@
+name: validate
+
+# Every listing is checked against the artifact it points at, on every
+# pull request. A listing that disagrees with its own package is a
+# listing that will never install: the server does the same cross-check
+# and refuses the mismatch.
+#
+# On main, the index is rebuilt and uploaded to the `packages` release,
+# which is where sites read it from.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No `pip install`: the tooling is standard library only, so the
+      # registry that distributes plugins has no supply chain of its own.
+      - name: Test the tooling
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+
+      - name: Validate listings
+        run: python3 tools/registry.py validate
+
+      - name: No personal or internal strings
+        run: scripts/check-public-tree.sh
+
+      # Fetching every package proves the published URLs resolve and that
+      # each artifact still matches its listing. Release downloads need no
+      # credentials once the repository is public; until then this is
+      # informational.
+      - name: Cross-check published packages
+        continue-on-error: ${{ github.event.repository.private }}
+        run: python3 tools/registry.py validate --network
+
+      - name: Build the index
+        run: python3 tools/registry.py build --out index.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: index
+          path: index.json
+
+  publish:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: index
+      # Packages are uploaded before their listing merges, so by now every
+      # file the index names is already on the release.
+      - name: Upload the index to the packages release
+        run: gh release upload packages index.json --clobber -R "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ github.token }}

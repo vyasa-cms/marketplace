@@ -1,0 +1,11 @@
+# Built from listings/ by tools/registry.py. Generated on publish rather
+# than committed: a checked-in index is a merge conflict on every pull
+# request, and a second source of truth that can disagree with the first.
+/index.json
+
+__pycache__/
+*.pyc
+
+# Packages are published to a release or a bucket, never committed.
+*.vyplugin
+*.vytheme
