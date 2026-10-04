@@ -83,6 +83,7 @@ def plugin_listing(**overrides) -> dict:
         "summary": "Sell things.",
         "author": "Vyasa",
         "homepage": "https://example.com/storefront",
+        "author_key": "ab" * 32,
         "versions": [
             {
                 "version": "1.2.0",
@@ -575,3 +576,24 @@ class PackageUrls(unittest.TestCase):
                  "sha256": "0" * 64, "required_api": 1, "signature": "0" * 128}
         registry.validate_version("listings/themes/a.json", "theme", entry, set(), problems)
         self.assertTrue(any("marketplace.vyasa.site/packages/" in p for p in problems.items), problems.items)
+
+
+class AuthorKeys(unittest.TestCase):
+    def test_plugin_listings_must_name_an_author_key(self):
+        problems = registry.Problems()
+        data = {"kind": "plugin", "name": "a", "title": "A", "summary": "s", "author": "x",
+                "versions": [{"version": "1.0.0", "url": registry.PACKAGES_BASE + "a-1.0.0.vyplugin",
+                              "sha256": "0" * 64, "min_host_api": 0, "capabilities": []}]}
+        registry.validate_listing(registry.ROOT / "listings/plugins/a.json", data, problems)
+        self.assertTrue(any("author_key" in p for p in problems.items), problems.items)
+
+    def test_a_package_signed_by_another_author_is_refused(self):
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+        from cryptography.hazmat.primitives import serialization as s
+        other = Ed25519PrivateKey.generate().public_key().public_bytes(s.Encoding.Raw, s.PublicFormat.Raw).hex()
+        blob = vyplugin()
+        entry = {"version": "1.2.0", "sha256": hashlib.sha256(blob).hexdigest(), "min_host_api": 2,
+                 "capabilities": ["kv:read"], "_name": "storefront", "_author_key": other}
+        problems = registry.Problems()
+        registry.check_package("listings/plugins/storefront.json", "plugin", entry, blob, problems)
+        self.assertTrue(any("author signature" in p for p in problems.items), problems.items)
