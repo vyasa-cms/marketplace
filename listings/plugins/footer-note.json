@@ -10,14 +10,15 @@
     {
       "version": "0.1.0",
       "url": "https://marketplace.vyasa.site/packages/footer-note-0.1.0.vyplugin",
-      "sha256": "c1fb3fbc5c9ca5c1e34e006b1b51d14f309a9d52a36c01f6f182d905b00dbe47",
+      "sha256": "53a4547ea89ef1665a249d4dc978abcf28a438a1ec60413cb1bf04389520f367",
       "min_host_api": 0,
       "capabilities": [
         "db:read:posts",
+        "html:page",
         "log:write"
       ],
       "released_at": "2026-10-04",
-      "signature": "acb690867da8badc046305709d7542e92bd5fc7e00721db386a97d493007c587c196ede40def92e5c36acc9b25d20f0a325c8c74f0630345d92724e38440e609"
+      "signature": "d4ff6dc50bd9f87e4ed456d8d773b082d4f557fcfe6eebe419622881e900264b794d658f2f4e46199ea4646f7209d05029d930c9f5f65663f931707a4eaa7e0a"
     }
   ]
 }
