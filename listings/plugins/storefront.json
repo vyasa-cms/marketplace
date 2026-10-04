@@ -1,0 +1,28 @@
+{
+  "kind": "plugin",
+  "name": "storefront",
+  "title": "Storefront",
+  "summary": "Products as a post type, designer sections with prices, a signed-in cart and order requests by mail.",
+  "author": "Vyasa Team",
+  "homepage": "https://github.com/vyasa-cms/vyasa/tree/main/plugin-sdk/examples/storefront",
+  "author_key": "48a037f983e5cae38da1855cce1e50e5825a79550868f4720e97e12256ac0ac3",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://marketplace.vyasa.site/packages/storefront-0.1.0.vyplugin",
+      "sha256": "f0131000cfad6b8b8b7c19ab939d02972af489839c26af1cb1c47015f4d6c410",
+      "min_host_api": 0,
+      "capabilities": [
+        "db:read:posts",
+        "db:write:meta",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "mail:send",
+        "viewer:read"
+      ],
+      "released_at": "2026-10-04",
+      "signature": "1abe954d60db0c27a96e666f136f4238ced877250a2e037f66bfcdae4f8e75a31fa631f991046bbe03b8eee0fd25e3524230858a930c6ae3fdd588dfd0b4d20c"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "plugin",
+  "name": "footer-note",
+  "title": "Footer Note",
+  "summary": "Adds a short note under every post. The smallest useful plugin, and the one to read first.",
+  "author": "Vyasa Team",
+  "homepage": "https://github.com/vyasa-cms/vyasa/tree/main/plugin-sdk/examples/footer-note",
+  "author_key": "48a037f983e5cae38da1855cce1e50e5825a79550868f4720e97e12256ac0ac3",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://marketplace.vyasa.site/packages/footer-note-0.1.0.vyplugin",
+      "sha256": "c1fb3fbc5c9ca5c1e34e006b1b51d14f309a9d52a36c01f6f182d905b00dbe47",
+      "min_host_api": 0,
+      "capabilities": [
+        "db:read:posts",
+        "log:write"
+      ],
+      "released_at": "2026-10-04",
+      "signature": "acb690867da8badc046305709d7542e92bd5fc7e00721db386a97d493007c587c196ede40def92e5c36acc9b25d20f0a325c8c74f0630345d92724e38440e609"
+    }
+  ]
+}
