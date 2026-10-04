@@ -16,7 +16,7 @@ In the Vyasa admin, under **Settings → Marketplace and updates**:
 | Option | Value |
 | --- | --- |
 | `registry_url` | `https://github.com/vyasa-cms/marketplace/releases/download/packages/index.json` |
-| `registry_trusted_keys` | leave empty for now — packages are verified by checksum; once the marketplace signs its packages, its public key is published here |
+| `registry_trusted_keys` | `5018b58f3167bed3f08fba4680f7ddf84a17c96aed43ae147f0a30e2d2f188ff` |
 
 Then **Plugins → Browse plugins** and **Appearance → Browse themes** list
 what this repository publishes. Both are options rather than config, so
@@ -95,6 +95,15 @@ A marketplace is static files, so you can host one anywhere https reaches.
 to a Vyasa install's `registry/` directory (copying packages before the
 index names them, and swapping the index in atomically); any static host
 works the same way.
+
+## The marketplace's key
+
+Every package in this marketplace is signed with this ed25519 key. Put it in
+`registry_trusted_keys` so your site refuses anything it did not sign:
+
+```
+5018b58f3167bed3f08fba4680f7ddf84a17c96aed43ae147f0a30e2d2f188ff
+```
 
 ## Signing
 

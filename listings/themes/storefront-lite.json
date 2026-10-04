@@ -10,14 +10,16 @@
       "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/storefront-lite-4.vytheme",
       "sha256": "496f554885e5857510af6fea7531fea11ed311e12297e72f91c36eaa05a97714",
       "required_api": 1,
-      "released_at": "2026-09-05"
+      "released_at": "2026-09-05",
+      "signature": "7223034d74c9f3606a645a7f74d1ee59a860bfb13a9026efcdef2bfe80753ebb2d3d0db3e49a84107c2b264e80f9022cdfef01c2e1c1c95cd0e7cf8caecd4b0f"
     },
     {
       "version": "3",
       "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/storefront-lite-3.vytheme",
       "sha256": "7fdad7d91c2b44b7fd9f4176b690672e5dae67821bd6763c5ad7c0dd64ba4473",
       "required_api": 1,
-      "released_at": "2026-09-05"
+      "released_at": "2026-09-05",
+      "signature": "1ba0549dc031df0f68639b8ea5052aeafa91005f95871c5505d3c4da2b3e04e32b8747c4eb076490af4476930cef6db3bbb84edddab345fd4175811eacf2a400"
     }
   ]
 }

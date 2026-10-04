@@ -10,14 +10,16 @@
       "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/blog-4.vytheme",
       "sha256": "e24d972f4139f2c82cd83cce807c1689b785562c1e4a58f450354fe949fe6047",
       "required_api": 1,
-      "released_at": "2026-09-05"
+      "released_at": "2026-09-05",
+      "signature": "161dc7e5832fce7a30cbf59d60d54cc8359876621edb046f2c6e5c8a6710f652af6c4dc5acc4313d1fc178280b0287219d3c5b2621e3775add2999baaca37d05"
     },
     {
       "version": "3",
       "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/blog-3.vytheme",
       "sha256": "9721e12addeb84d4ff975653e86dee25b8fe0244a76a89a4ebb97e5e49f7f625",
       "required_api": 1,
-      "released_at": "2026-09-05"
+      "released_at": "2026-09-05",
+      "signature": "2e34be2672ee4d74ed72cba1bd70e4721226cb61d8a8b0a8e33360eeb74f2cdd79974aded7eed0eb1cd575fae0c17b3e4267f5a6707c71352036baa21ec38b0d"
     }
   ]
 }
