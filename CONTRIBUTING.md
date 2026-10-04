@@ -14,10 +14,11 @@ listing named `storefront`.
   "summary": "Products, a cart and checkout.",
   "author": "Your Name",
   "homepage": "https://example.com/storefront",
+  "author_key": "<your ed25519 public key, 64 hex — `vyasa plugin keygen`>",
   "versions": [
     {
       "version": "1.2.0",
-      "url": "https://cdn.example.com/storefront-1.2.0.vyplugin",
+      "url": "https://marketplace.vyasa.site/packages/storefront-1.2.0.vyplugin",
       "sha256": "<filled in by tools/sign.py stamp>",
       "signature": "<filled in by tools/sign.py stamp>",
       "min_host_api": 2,
@@ -40,7 +41,7 @@ listing named `storefront`.
   "versions": [
     {
       "version": "3",
-      "url": "https://cdn.example.com/aurora-3.vytheme",
+      "url": "https://marketplace.vyasa.site/packages/aurora-3.vytheme",
       "sha256": "<filled in by tools/sign.py stamp>",
       "required_api": 1
     }

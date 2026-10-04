@@ -79,7 +79,7 @@ not trusted.
    ```
 
    The listing's `url` is
-   `https://github.com/vyasa-cms/marketplace/releases/download/packages/<file>`.
+   `https://marketplace.vyasa.site/packages/<file>`.
    **A published file name is never reused for different bytes** — a site
    that installed that version recorded its digest. New bytes get a new
    version and a new file name.
@@ -98,12 +98,11 @@ works the same way.
 
 ## The marketplace's key
 
-Every package in this marketplace is signed with this ed25519 key. Put it in
-`registry_trusted_keys` so your site refuses anything it did not sign:
-
-```
-5018b58f3167bed3f08fba4680f7ddf84a17c96aed43ae147f0a30e2d2f188ff
-```
+Every package here is signed with the marketplace's ed25519 key, and
+every Vyasa binary carries the matching public key (and a spare, for
+rotation) in `crates/api/src/official.rs`. Sites never configure it.
+Plugins also carry their author's signature, checked against the
+`author_key` their listing names.
 
 ## Signing
 
@@ -112,14 +111,14 @@ python3 tools/sign.py keygen
 ```
 
 Keep the private half in a CI secret. Publish the public half — that is
-what operators paste into `registry_trusted_keys`.
+the key compiled into every Vyasa binary.
 
 Two independent signatures end up protecting a marketplace plugin:
 
 - the **author** signature inside the `.vyplugin`, checked against the
   site's `plugin_trusted_keys`;
 - the **registry** signature over the downloaded bytes, checked against
-  the site's `registry_trusted_keys`.
+  the keys compiled into the binary.
 
 They are separate claims and both must hold. Marketplace plugin installs
 are refused outright on a site with no plugin signing keys configured.
