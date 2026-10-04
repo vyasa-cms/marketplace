@@ -86,7 +86,7 @@ def plugin_listing(**overrides) -> dict:
         "versions": [
             {
                 "version": "1.2.0",
-                "url": "https://cdn.example.com/storefront-1.2.0.vyplugin",
+                "url": "https://marketplace.vyasa.site/packages/storefront-1.2.0.vyplugin",
                 "sha256": "0" * 64,
                 "min_host_api": 2,
                 "capabilities": ["kv:read"],
@@ -187,7 +187,7 @@ class ListingStructure(unittest.TestCase):
             "versions": [
                 {
                     "version": "3",
-                    "url": "https://cdn.example.com/aurora-3.vytheme",
+                    "url": "https://marketplace.vyasa.site/packages/aurora-3.vytheme",
                     "sha256": "a" * 64,
                     "required_api": 1,
                 }
@@ -244,7 +244,7 @@ class ListingStructure(unittest.TestCase):
             "versions": [
                 {
                     "version": "3.0.0",
-                    "url": "https://cdn.example.com/aurora.vytheme",
+                    "url": "https://marketplace.vyasa.site/packages/aurora.vytheme",
                     "sha256": "a" * 64,
                     "required_api": 1,
                 }
@@ -410,7 +410,7 @@ class TypesMatchTheServer(unittest.TestCase):
     def theme(self, **version) -> dict:
         entry = {
             "version": "3",
-            "url": "https://cdn.example.com/aurora-3.vytheme",
+            "url": "https://marketplace.vyasa.site/packages/aurora-3.vytheme",
             "sha256": "a" * 64,
             "required_api": 1,
         }
@@ -566,3 +566,12 @@ class Stamp(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 self.stamp(listing, blob, key="07" * 32)
             self.assertEqual(self.listing.read_text(), before, "nothing written")
+
+
+class PackageUrls(unittest.TestCase):
+    def test_package_urls_must_live_on_the_marketplace_domain(self):
+        problems = registry.Problems()
+        entry = {"version": "1", "url": "https://github.com/x/y/releases/download/p/a.vytheme",
+                 "sha256": "0" * 64, "required_api": 1, "signature": "0" * 128}
+        registry.validate_version("listings/themes/a.json", "theme", entry, set(), problems)
+        self.assertTrue(any("marketplace.vyasa.site/packages/" in p for p in problems.items), problems.items)

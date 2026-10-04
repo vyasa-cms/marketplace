@@ -7,7 +7,7 @@
   "versions": [
     {
       "version": "5",
-      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/portfolio-5.vytheme",
+      "url": "https://marketplace.vyasa.site/packages/portfolio-5.vytheme",
       "sha256": "bff681343783474469bcafb5cacb99b7f74d43909c3e9109ad34db64cfd6578a",
       "required_api": 1,
       "released_at": "2026-09-05",
@@ -15,7 +15,7 @@
     },
     {
       "version": "4",
-      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/portfolio-4.vytheme",
+      "url": "https://marketplace.vyasa.site/packages/portfolio-4.vytheme",
       "sha256": "b3e97a8a0021e5de5c3ce7ce4a8f655e1d22bf2cdb3ce91926a8d7ca176cb91d",
       "required_api": 1,
       "released_at": "2026-09-05",
@@ -23,7 +23,7 @@
     },
     {
       "version": "3",
-      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/portfolio-3.vytheme",
+      "url": "https://marketplace.vyasa.site/packages/portfolio-3.vytheme",
       "sha256": "13a32584012a2cf0f2f68b71ae2ec691a8df4a445a0d960b3933c3ecccd04f67",
       "required_api": 1,
       "released_at": "2026-09-05",

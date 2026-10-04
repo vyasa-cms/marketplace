@@ -9,20 +9,20 @@ you sign, so **the host does not have to be trusted — only reachable.**
 That is why running a marketplace costs a static file, and why a mirror
 of it is exactly as safe as the original.
 
-## Pointing a site at it
+## Using it
 
-In the Vyasa admin, under **Settings → Marketplace and updates**:
+Every Vyasa install uses this marketplace out of the box — nothing to
+configure. It is served as static files at `https://marketplace.vyasa.site`
+and verified by keys compiled into every Vyasa binary. Operators can
+mirror it (`[marketplace] mirror_url` in `vyasa.toml`); see Vyasa's
+`docs/MARKETPLACE.md`.
 
-| Option | Value |
-| --- | --- |
-| `registry_url` | `https://github.com/vyasa-cms/marketplace/releases/download/packages/index.json` |
-| `registry_trusted_keys` | `5018b58f3167bed3f08fba4680f7ddf84a17c96aed43ae147f0a30e2d2f188ff` |
+## Publishing
 
-Then **Plugins → Browse plugins** and **Appearance → Browse themes** list
-what this repository publishes. Both are options rather than config, so
-adding a marketplace never means editing `vyasa.toml` and restarting.
-
-Leave `registry_url` empty and the marketplace is off entirely.
+```bash
+tools/build-site.sh [--packages ./dist]   # index.json + every package into site/dist
+(cd site && npx wrangler deploy)          # to marketplace.vyasa.site
+```
 
 ## What an operator sees before installing
 

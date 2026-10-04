@@ -84,6 +84,11 @@ VERSION_FIELDS = {
 }
 
 
+# Where every published package lives. Sites never trust the host — the
+# signature is checked — but one address keeps mirrors simple.
+PACKAGES_BASE = "https://marketplace.vyasa.site/packages/"
+
+
 class Problems:
     """Every failure, collected, so one CI run reports them all."""
 
@@ -223,6 +228,8 @@ def validate_version(
     url = entry.get("url")
     if not is_str(url) or not url.startswith("https://"):
         problems.add(where, f"{label}: url must be https (the server refuses others)")
+    elif not url.startswith(PACKAGES_BASE):
+        problems.add(where, f"{label}: url must start with {PACKAGES_BASE}")
 
     sha = entry.get("sha256")
     if not is_str(sha) or not HEX64_RE.match(sha):
