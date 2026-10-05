@@ -24,6 +24,10 @@ import re
 import sys
 import tomllib
 import urllib.request
+
+# Author signatures are verified with the same primitive the server uses;
+# a runner without it must fail loudly, never report "does not verify".
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -376,7 +380,6 @@ def check_package(where: str, kind: str, entry: dict, blob: bytes, problems: Pro
             # The server checks this at install, against the listing's key:
             # hex ed25519 over sha256(manifest.toml) || sha256(plugin.wasm).
             try:
-                from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
                 raw = archive.read("signature.txt").decode("utf-8")
                 sig = bytes.fromhex("".join(ch for ch in raw if ch in "0123456789abcdefABCDEF"))
                 msg = (hashlib.sha256(archive.read("manifest.toml")).digest()
