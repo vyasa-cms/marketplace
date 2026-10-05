@@ -6,6 +6,14 @@
   "author": "Vyasa Team",
   "versions": [
     {
+      "version": "5",
+      "url": "https://marketplace.vyasa.site/packages/docs-5.vytheme",
+      "sha256": "66b2e9892c0eb8f98b8e045ec27d5a6938af93f6d610a5ee53ad721ef17aecec",
+      "required_api": 1,
+      "released_at": "2026-10-05",
+      "signature": "afc515867bb046355c398ff3db0bcc287d218b52e626f384f587bc220af8c2094b9cc13f90cdcea67a6e23b07450b7ac8c4407b9bfcc41a865f6a7a7bbde9807"
+    },
+    {
       "version": "4",
       "url": "https://marketplace.vyasa.site/packages/docs-4.vytheme",
       "sha256": "061b7eef1fe3e9f1adbfa5b828ea0cca45e5c257e778641610e97d5d13f66c36",
