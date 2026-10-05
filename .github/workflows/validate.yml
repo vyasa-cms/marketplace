@@ -27,8 +27,9 @@ jobs:
           python-version: "3.12"
       - run: pip install cryptography
 
-      # No `pip install`: the tooling is standard library only, so the
-      # registry that distributes plugins has no supply chain of its own.
+      # The one dependency is `cryptography`, for ed25519 (the same
+      # primitive the server verifies with); everything else is the
+      # standard library.
       - name: Test the tooling
         run: python3 -m unittest discover -s tools -p 'test_*.py' -v
 
