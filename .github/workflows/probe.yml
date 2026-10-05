@@ -1,0 +1,15 @@
+name: Probe public endpoints
+# Fetches the public endpoints from a GitHub runner (a datacenter address),
+# to see what Cloudflare answers there.
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for ua in "curl/8.5.0" "vyasa/0.1.0" "Mozilla/5.0"; do
+            for u in https://updates.vyasa.site/stable.json https://marketplace.vyasa.site/index.json https://vyasa.site/install.sh https://demo.vyasa.site/; do
+              printf '%-14s %-45s %s\n' "$ua" "$u" "$(curl -s -o /dev/null -w '%{http_code}' -A "$ua" "$u")"
+            done
+          done
+          curl -s -D - -o /dev/null -A "vyasa/0.1.0" https://updates.vyasa.site/stable.json | grep -iE "^HTTP|^cf-|^server" || true
