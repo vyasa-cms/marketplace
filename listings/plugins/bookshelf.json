@@ -1,0 +1,30 @@
+{
+  "kind": "plugin",
+  "name": "bookshelf",
+  "title": "Bookshelf",
+  "summary": "A custom post type, block, public route, scheduled task and settings form: every extension point, once.",
+  "author": "Vyasa Team",
+  "homepage": "https://github.com/vyasa-cms/vyasa/tree/main/plugin-sdk/examples/bookshelf",
+  "author_key": "48a037f983e5cae38da1855cce1e50e5825a79550868f4720e97e12256ac0ac3",
+  "versions": [
+    {
+      "version": "0.4.0",
+      "url": "https://marketplace.vyasa.site/packages/bookshelf-0.4.0.vyplugin",
+      "sha256": "3ee88ef7f84a275d29df95b7ce0a2b0b58fbe10e76484357578affb65996f10c",
+      "min_host_api": 0,
+      "capabilities": [
+        "db:read:options",
+        "db:read:posts",
+        "db:write:meta",
+        "html:page",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "mail:send",
+        "viewer:read"
+      ],
+      "released_at": "2026-10-04",
+      "signature": "221c8e4db4e321ffb47f187737b57a8845467fd4b537f225985d9f1e5259e7fc7848d9acd0df86e4c2c1d468ff6dfdaf147f16f4923f86fb0ff7704e0d3aaf0d"
+    }
+  ]
+}

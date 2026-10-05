@@ -1,0 +1,29 @@
+{
+  "kind": "plugin",
+  "name": "forum-lite",
+  "title": "Forum Lite",
+  "summary": "Topics as entries and replies as the site's own comments: a community space without a second system.",
+  "author": "Vyasa Team",
+  "homepage": "https://github.com/vyasa-cms/vyasa/tree/main/plugin-sdk/examples/forum-lite",
+  "author_key": "48a037f983e5cae38da1855cce1e50e5825a79550868f4720e97e12256ac0ac3",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://marketplace.vyasa.site/packages/forum-lite-0.1.0.vyplugin",
+      "sha256": "aba60ed6030494d9d68c6d6284bcb5f9d98e01b96980c626d85bf423e7e3231b",
+      "min_host_api": 0,
+      "capabilities": [
+        "db:publish:posts",
+        "db:read:comments",
+        "db:read:posts",
+        "db:write:posts",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "viewer:read"
+      ],
+      "released_at": "2026-10-04",
+      "signature": "f7a88520c9aed5c6392ddf1bd131cbbe0f920520d3f0a8b0d9ca575a212deb0074688698bcfcf7ceabb1ae25f4a8a45beaa9ad3a469743f75a1d72be9e55ea07"
+    }
+  ]
+}

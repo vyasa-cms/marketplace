@@ -71,7 +71,7 @@ CAPABILITIES = {
     "assets:script",
 }
 
-LISTING_FIELDS = {"kind", "name", "title", "summary", "author", "homepage", "versions"}
+LISTING_FIELDS = {"kind", "name", "title", "summary", "author", "homepage", "author_key", "versions"}
 VERSION_FIELDS = {
     "version",
     "url",
@@ -82,6 +82,11 @@ VERSION_FIELDS = {
     "capabilities",
     "released_at",
 }
+
+
+# Where every published package lives. Sites never trust the host — the
+# signature is checked — but one address keeps mirrors simple.
+PACKAGES_BASE = "https://marketplace.vyasa.site/packages/"
 
 
 class Problems:
@@ -177,6 +182,11 @@ def validate_listing(path: Path, data: dict, problems: Problems) -> None:
     homepage = data.get("homepage")
     if homepage is not None and not (is_str(homepage) and homepage.startswith("https://")):
         problems.add(where, "homepage must be an https string")
+    author_key = data.get("author_key")
+    if kind == "plugin" and not (is_str(author_key) and HEX64_RE.match(author_key)):
+        problems.add(where, "plugin listings must name author_key: the author's 64-hex ed25519 public key")
+    elif author_key is not None and not (is_str(author_key) and HEX64_RE.match(author_key)):
+        problems.add(where, "author_key must be 64 hex characters")
 
     versions = data.get("versions")
     if not isinstance(versions, list) or not versions:
@@ -223,6 +233,8 @@ def validate_version(
     url = entry.get("url")
     if not is_str(url) or not url.startswith("https://"):
         problems.add(where, f"{label}: url must be https (the server refuses others)")
+    elif not url.startswith(PACKAGES_BASE):
+        problems.add(where, f"{label}: url must start with {PACKAGES_BASE}")
 
     sha = entry.get("sha256")
     if not is_str(sha) or not HEX64_RE.match(sha):
@@ -360,6 +372,21 @@ def check_package(where: str, kind: str, entry: dict, blob: bytes, problems: Pro
                 f"{label}: unsigned package. The server refuses marketplace "
                 f"plugins that carry no author signature.",
             )
+        elif entry.get("_author_key"):
+            # The server checks this at install, against the listing's key:
+            # hex ed25519 over sha256(manifest.toml) || sha256(plugin.wasm).
+            try:
+                from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+                raw = archive.read("signature.txt").decode("utf-8")
+                sig = bytes.fromhex("".join(ch for ch in raw if ch in "0123456789abcdefABCDEF"))
+                msg = (hashlib.sha256(archive.read("manifest.toml")).digest()
+                       + hashlib.sha256(archive.read("plugin.wasm")).digest())
+                Ed25519PublicKey.from_public_bytes(bytes.fromhex(entry["_author_key"])).verify(sig, msg)
+            except Exception:  # noqa: BLE001 - any failure is "does not verify"
+                problems.add(
+                    where,
+                    f"{label}: the author signature does not verify under the listing's author_key",
+                )
         if str(manifest.get("version", "")) != str(entry.get("version")):
             problems.add(
                 where,
@@ -444,7 +471,11 @@ def cmd_validate(args: argparse.Namespace) -> int:
                 except Exception as exc:  # noqa: BLE001
                     problems.add(where, f"version {entry['version']}: {exc}")
                     continue
-                check_package(where, kind, {**entry, "_name": data["name"]}, blob, problems)
+                check_package(
+                    where, kind,
+                    {**entry, "_name": data["name"], "_author_key": data.get("author_key")},
+                    blob, problems,
+                )
 
     if problems:
         report(problems)

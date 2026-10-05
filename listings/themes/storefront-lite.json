@@ -6,8 +6,16 @@
   "author": "Vyasa Team",
   "versions": [
     {
+      "version": "5",
+      "url": "https://marketplace.vyasa.site/packages/storefront-lite-5.vytheme",
+      "sha256": "ce0989ef2187a60021fa1375d3165c20af1fe46956715d49297ba035d303041f",
+      "required_api": 1,
+      "released_at": "2026-10-05",
+      "signature": "ea1bc0e9017f4d83132b1c4b95c2cd3590511341e5b7ebc157ffd0fb2b0ad11c5b9ff1536e3f0cfa2e627555a506569245bf223b0c7d23a62214d5b286562d0d"
+    },
+    {
       "version": "4",
-      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/storefront-lite-4.vytheme",
+      "url": "https://marketplace.vyasa.site/packages/storefront-lite-4.vytheme",
       "sha256": "496f554885e5857510af6fea7531fea11ed311e12297e72f91c36eaa05a97714",
       "required_api": 1,
       "released_at": "2026-09-05",
@@ -15,7 +23,7 @@
     },
     {
       "version": "3",
-      "url": "https://github.com/vyasa-cms/marketplace/releases/download/packages/storefront-lite-3.vytheme",
+      "url": "https://marketplace.vyasa.site/packages/storefront-lite-3.vytheme",
       "sha256": "7fdad7d91c2b44b7fd9f4176b690672e5dae67821bd6763c5ad7c0dd64ba4473",
       "required_api": 1,
       "released_at": "2026-09-05",
