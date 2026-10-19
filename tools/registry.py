@@ -23,6 +23,7 @@ import json
 import re
 import sys
 import tomllib
+import urllib.error
 import urllib.request
 
 # Author signatures are verified with the same primitive the server uses;
@@ -93,6 +94,9 @@ VERSION_FIELDS = {
 # Where every published package lives. Sites never trust the host — the
 # signature is checked — but one address keeps mirrors simple.
 PACKAGES_BASE = "https://marketplace.vyasa.site/packages/"
+# marketplace.vyasa.site is rebuilt from this release after a listing
+# merges, so a new package is only on the release while its PR is open.
+RELEASE_BASE = "https://github.com/vyasa-cms/marketplace/releases/download/packages/"
 
 
 class Problems:
@@ -292,6 +296,15 @@ def fetch(url: str, limit: int) -> bytes:
     return body
 
 
+def fetch_published(url: str, limit: int) -> bytes:
+    try:
+        return fetch(url, limit)
+    except urllib.error.HTTPError as exc:
+        if exc.code != 404 or not url.startswith(PACKAGES_BASE):
+            raise
+        return fetch(RELEASE_BASE + url[len(PACKAGES_BASE):], limit)
+
+
 BUNDLED_EXT = {
     "images": {"png", "jpg", "jpeg", "gif", "webp", "avif", "svg"},
     "fonts": {"woff2", "woff", "ttf", "otf"},
@@ -472,7 +485,7 @@ def cmd_validate(args: argparse.Namespace) -> int:
             limit = PLUGIN_MAX_BYTES if kind == "plugin" else THEME_MAX_BYTES
             for entry in data["versions"]:
                 try:
-                    blob = fetch(entry["url"], limit)
+                    blob = fetch_published(entry["url"], limit)
                 except Exception as exc:  # noqa: BLE001
                     problems.add(where, f"version {entry['version']}: {exc}")
                     continue
