@@ -73,6 +73,8 @@ CAPABILITIES = {
     "ai:text",
     "html:page",
     "assets:script",
+    "entries:sync",
+    "tasks:extended",
 }
 
 LISTING_FIELDS = {"kind", "name", "title", "summary", "author", "homepage", "author_key", "versions"}

@@ -1,0 +1,30 @@
+{
+  "kind": "plugin",
+  "name": "vyasa-docs",
+  "title": "Docs",
+  "summary": "Documentation sites synced from a GitHub repository: sidebar, contents, pager, versions, scoped search, tabs, steps and callouts.",
+  "author": "Vyasa Team",
+  "homepage": "https://github.com/vyasa-cms/vyasa/tree/main/plugins/docs",
+  "author_key": "48a037f983e5cae38da1855cce1e50e5825a79550868f4720e97e12256ac0ac3",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.0.vyplugin",
+      "sha256": "67e4646b2b7dc1758e5cc9651f42ee59f6f977d1ac065b32f9ad0649c82aa9a1",
+      "signature": "fb10a435c96d63edddfeea6ed75188fdf72cc72d229ca73ec344c97aecf120157d08c1264a40bccb3b9d2a55ae2afd3b24c94d3b4affdceab72300e647c01c0f",
+      "min_host_api": 2,
+      "capabilities": [
+        "assets:script",
+        "db:publish:posts",
+        "entries:sync",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "net:fetch:api.github.com",
+        "net:fetch:raw.githubusercontent.com",
+        "tasks:extended"
+      ],
+      "released_at": "2026-10-19"
+    }
+  ]
+}
