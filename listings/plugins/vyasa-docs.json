@@ -11,7 +11,7 @@
       "version": "0.1.0",
       "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.0.vyplugin",
       "sha256": "67e4646b2b7dc1758e5cc9651f42ee59f6f977d1ac065b32f9ad0649c82aa9a1",
-      "signature": "fb10a435c96d63edddfeea6ed75188fdf72cc72d229ca73ec344c97aecf120157d08c1264a40bccb3b9d2a55ae2afd3b24c94d3b4affdceab72300e647c01c0f",
+      "signature": "fb4065a686d8938b0bdf8016f723f7afc2b10663b932ef96da9f8b2018bcd0e59ab619eb9de17597bb12c639b86415685f2f41df4c4d7e9a39fe668d0f009c04",
       "min_host_api": 2,
       "capabilities": [
         "assets:script",
