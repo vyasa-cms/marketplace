@@ -25,6 +25,25 @@
         "tasks:extended"
       ],
       "released_at": "2026-10-19"
+    },
+    {
+      "version": "0.1.1",
+      "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.1.vyplugin",
+      "sha256": "ac503e324737aa67b1428466b1f3d3bfa906e0a992ad102f8797eae0ff729647",
+      "signature": "6ef6ea441c1fe804aa9f34942eb223c4132c8ae865a2665736d0bfd2b05f2116a783bb9a688a9a2ecc93348a6466f0df8d3f5067fdf1bf4a12fc5e82c8962d0a",
+      "min_host_api": 2,
+      "capabilities": [
+        "assets:script",
+        "db:publish:posts",
+        "entries:sync",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "net:fetch:api.github.com",
+        "net:fetch:raw.githubusercontent.com",
+        "tasks:extended"
+      ],
+      "released_at": "2026-10-21"
     }
   ]
 }
