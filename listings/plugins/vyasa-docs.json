@@ -86,8 +86,8 @@
     {
       "version": "0.1.4",
       "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.4.vyplugin",
-      "sha256": "<filled in by tools/sign.py stamp>",
-      "signature": "<filled in by tools/sign.py stamp>",
+      "sha256": "eaa6f51f1095439c4325478107a41ffdd0d9a87c472cac68859ab7061e86d7d7",
+      "signature": "14e50696128d4e69c59e49116f4b4298bbfb10c6d3b828e8791272e35bdb6a234d041ab34378cf0247c1a770d80dbbdcf26875e3e2d035108530eac3c00f5d01",
       "min_host_api": 2,
       "capabilities": [
         "assets:script",
