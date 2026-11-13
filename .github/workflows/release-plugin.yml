@@ -1,0 +1,98 @@
+name: release-plugin
+
+# The maintainer step of the publishing flow (README, "Publishing"), run
+# by a workflow instead of by hand: upload the package to the `packages`
+# release, stamp the real digest and the registry signature into the
+# listing, and push that to the pull request's branch. The listing entry
+# for the new version (without sha256/signature) is already in the PR.
+#
+# Needs the repository secret REGISTRY_KEY (hex ed25519 private key). The
+# key only ever reaches the stamp step, through the environment.
+#
+# A published file name is never reused for different bytes: the upload
+# refuses to overwrite an asset whose bytes differ.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch of the pull request that adds the listing entry
+        required: true
+      listing:
+        description: Listing path, e.g. listings/plugins/vyasa-docs.json
+        required: true
+      version:
+        description: Version to stamp, e.g. 0.1.6
+        required: true
+      package_url:
+        description: https URL of the author-signed .vyplugin (a workflow artifact or release asset)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.branch }}
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography
+
+      - name: Fetch the package
+        env:
+          PACKAGE_URL: ${{ inputs.package_url }}
+        run: |
+          set -euo pipefail
+          case "$PACKAGE_URL" in https://*) ;; *) echo "package_url must be https" >&2; exit 1 ;; esac
+          mkdir -p dist
+          curl -fsSL --proto '=https' -o dist/package.vyplugin "$PACKAGE_URL"
+
+      - name: Upload to the packages release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LISTING: ${{ inputs.listing }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          # The file name is the last segment of the listing entry's url.
+          name=$(python3 - <<'PY'
+          import json, os
+          data = json.load(open(os.environ["LISTING"]))
+          entry = next(v for v in data["versions"] if str(v["version"]) == os.environ["VERSION"])
+          print(entry["url"].rsplit("/", 1)[-1])
+          PY
+          )
+          cp dist/package.vyplugin "dist/$name"
+          if gh release view packages --json assets -q '.assets[].name' | grep -qx "$name"; then
+            gh release download packages -p "$name" -D existing --clobber
+            cmp "existing/$name" "dist/$name" || { echo "$name is already published with different bytes; bump the version" >&2; exit 1; }
+          else
+            gh release upload packages "dist/$name"
+          fi
+          echo "PACKAGE=dist/$name" >> "$GITHUB_ENV"
+
+      - name: Stamp the listing
+        env:
+          REGISTRY_KEY: ${{ secrets.REGISTRY_KEY }}
+          LISTING: ${{ inputs.listing }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          python3 tools/sign.py stamp "$LISTING" "$VERSION" \
+            --package "$PACKAGE" --key-env REGISTRY_KEY
+
+      - name: Push the stamped listing
+        env:
+          LISTING: ${{ inputs.listing }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          git config user.name "marketplace-bot"
+          git config user.email "marketplace-bot@users.noreply.github.com"
+          git add "$LISTING"
+          git commit -s -m "stamp $LISTING $VERSION"
+          git push origin HEAD
