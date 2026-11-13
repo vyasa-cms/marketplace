@@ -101,6 +101,25 @@
         "tasks:extended"
       ],
       "released_at": "2026-11-11"
+    },
+    {
+      "version": "0.1.5",
+      "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.5.vyplugin",
+      "sha256": "<filled in by tools/sign.py stamp>",
+      "signature": "<filled in by tools/sign.py stamp>",
+      "min_host_api": 2,
+      "capabilities": [
+        "assets:script",
+        "db:publish:posts",
+        "entries:sync",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "net:fetch:api.github.com",
+        "net:fetch:raw.githubusercontent.com",
+        "tasks:extended"
+      ],
+      "released_at": "2026-11-13"
     }
   ]
 }
