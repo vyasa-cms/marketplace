@@ -139,6 +139,25 @@
       ],
       "released_at": "2026-11-13",
       "signature": "ac7b100e81a1ae23d69f9cec82b91f0a2e69f0be08651f5f4b28584664f9c9147576844db645c494c371c8f84f48c4b1197abcec832c798d6a8a26558032890c"
+    },
+    {
+      "version": "0.1.7",
+      "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.7.vyplugin",
+      "sha256": "bac67bdbc91558512b2f65516498e0dad92b1720a997425dd5a3fa9d82491dc2",
+      "min_host_api": 2,
+      "capabilities": [
+        "assets:script",
+        "db:publish:posts",
+        "entries:sync",
+        "kv:read",
+        "kv:write",
+        "log:write",
+        "net:fetch:api.github.com",
+        "net:fetch:raw.githubusercontent.com",
+        "tasks:extended"
+      ],
+      "released_at": "2026-11-14",
+      "signature": "b52fa605d57ee25f7f572b59798d90ddd678a07a53ff2c171957506639314343afda63a1e2cc90a89dbe769ae5e85678ed146c4bb8deb134a8c959bacf532f02"
     }
   ]
 }
