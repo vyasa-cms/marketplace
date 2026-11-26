@@ -181,7 +181,7 @@
     {
       "version": "0.1.14",
       "url": "https://marketplace.vyasa.site/packages/vyasa-docs-0.1.14.vyplugin",
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sha256": "9128e88dcb96a48bff45effcb455c5901ee086bf4c89c6df44ce4f846eb47ee3",
       "min_host_api": 2,
       "capabilities": [
         "assets:script",
@@ -194,7 +194,8 @@
         "net:fetch:raw.githubusercontent.com",
         "tasks:extended"
       ],
-      "released_at": "2026-11-26"
+      "released_at": "2026-11-26",
+      "signature": "0f92fe8dc87dbac82aadac3cde1591ae733fb83a4c4df8049d90c93b72ce6a05db8af373f547cfbfc306844c31c17b4c8267e415426a53a2c96fdbf8f9871308"
     }
   ]
 }
